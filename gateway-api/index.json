@@ -9,6 +9,10 @@
       {
         "title": "Install the Gateway CRDs",
         "text": "step1.md"
+      },
+      {
+        "title": "Install Istio",
+        "text": "step2.md"
       }
     ],
     "finish": {
