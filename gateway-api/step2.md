@@ -8,7 +8,7 @@ helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo update
 ```{{exec}}
 
-Install Istio. This could take a few minutes, please be patient.
+Install Istio. This can take a minute or two, please be patient.
 
 ```bash
 kubectl create namespace istio-system
@@ -16,7 +16,7 @@ helm install istio-base istio/base -n istio-system --set defaultRevision=default
 helm install istiod istio/istiod -n istio-system --wait
 ```{{exec}}
 
-Check that the Istio pods are showing as `Ready`
+Check that the Istiod pod is showing as `Running`
 
 ```bash
 k get po -n istio-system
