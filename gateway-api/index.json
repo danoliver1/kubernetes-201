@@ -1,13 +1,13 @@
 {
-  "title": "Kubernetes 1node",
-  "description": "Use a simple one node Kubernetes cluster and let user list all pods",
+  "title": "Gateway API with Istio",
+  "description": "Example showing how to use the Gateway API with Istio",
   "details": {
     "intro": {
       "text": "intro.md"
     },
     "steps": [
       {
-        "title": "List all pods",
+        "title": "Install the Gateway CRDs",
         "text": "step1.md"
       }
     ],
