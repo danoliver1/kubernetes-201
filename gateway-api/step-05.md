@@ -14,6 +14,7 @@ spec:
   gatewayClassName: istio
   listeners:
   - name: http
+    hostname: {{TRAFFIC_HOST1_80}}
     port: 80
     protocol: HTTP
     allowedRoutes:
@@ -28,4 +29,6 @@ We can wait for the Gateway to be ready with this command
 kubectl wait --for=condition=programmed gtw purple-team-gateway
 ```{{exec}}
 
-The Gateway's public URL is: [{{TRAFFIC_HOST1_80}}]({{TRAFFIC_HOST1_80}})
+The Gateway's public URL is: 
+
+{{TRAFFIC_HOST1_80}}
