@@ -1,4 +1,5 @@
 
+
 We're going to install Istio using the Helm charts because it is nice and simple. 
 
 Add the Helm repository
@@ -19,7 +20,7 @@ helm install istiod istio/istiod -n istio-system --wait
 Check that the Istiod pod is showing as `Running`
 
 ```bash
-k get po -n istio-system
+kubectl get pods -n istio-system
 ```{{exec}}
 
-*Note: If there are any errors, please review the [Helm install guide](https://istio.io/latest/docs/setup/install/helm/) and [Contact Us](#) if unable to resolve.*
+*Note: If there are any errors, please review the [Helm install guide](https://istio.io/latest/docs/setup/install/helm/) and [Contact Us](#) if unable to resolve*
