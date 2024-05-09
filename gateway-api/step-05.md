@@ -25,5 +25,7 @@ EOF
 We can wait for the Gateway to be ready with this command
 
 ```bash
-$ kubectl wait --for=condition=programmed gtw purple-team-gateway
+kubectl wait --for=condition=programmed gtw purple-team-gateway
 ```{{exec}}
+
+The Gateway's public URL is: [{{TRAFFIC_HOST1_80}}]({{TRAFFIC_HOST1_80}})

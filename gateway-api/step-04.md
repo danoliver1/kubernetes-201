@@ -6,6 +6,7 @@ Please note that using the `kubectl` cli is not how I'd recommend deploying prod
 ```bash
 kubectl create deployment hello-world --image httpd
 kubectl expose deployment hello-world --port 80
+kubectl wait --for=condition=available deploy hello-world
 ```{{exec}}
 
 Let's have a look at what we've created:
