@@ -20,8 +20,16 @@ Which has created our pod
 kubectl get po -n purple-team
 ```{{exec}}
 
-And an internal service which has exposed our pod
+And an internal "ClusterIP" service which has exposed our pod interally on port 8080
 
 ```bash
 kubectl get service -n purple-team
 ```{{exec}}
+
+We can now test that our service is accessible by running curl from a temporary pod
+
+```bash
+kubectl run curl --image curlimages/curl --restart=Never --rm -it -- hello-world:8080
+```
+
+*The above command creates a pod using the `curlimages/curl` docker image, runs the command `curl hello-world:8080` then removes the pod after the command has completed.*

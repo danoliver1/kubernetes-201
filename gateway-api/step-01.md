@@ -9,7 +9,7 @@ helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo update
 ```{{exec}}
 
-Install Istio. This can take a minute or two, please be patient.
+Install Istio. This can take a minute or two, **please be patient**.
 
 ```bash
 kubectl create namespace istio-system
