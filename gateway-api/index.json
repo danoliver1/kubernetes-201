@@ -21,6 +21,14 @@
       {
         "title": "Create a simple web app",
         "text": "step-04.md"
+      },
+      {
+        "title": "Create a Gateway",
+        "text": "step-05.md"
+      },
+      {
+        "title": "Route requests to our app",
+        "text": "step-05.md"
       }
     ],
     "finish": {
