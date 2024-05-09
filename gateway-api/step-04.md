@@ -1,9 +1,11 @@
 
-We'll create a simple deployment and a service to expose it
+We'll create a simple deployment and a service to expose it so we can access it using Kubernetes DNS, e.g. `http://hello-world`.
+
+Please note that using the `kubectl` cli is not how I'd recommend deploying production-grade apps, but it's a nice quick way that we can use for testing. Productionising Kubernetes is out of scope for this course.
 
 ```bash
-kubectl -n purple-team create deployment hello-world --image nginx
-kubectl -n purple-team expose deployment hello-world --port 8080
+kubectl create deployment hello-world --image httpd
+kubectl expose deployment hello-world --port 80
 ```{{exec}}
 
 Let's have a look at what we've created:
@@ -11,25 +13,30 @@ Let's have a look at what we've created:
 We have a Deployment
 
 ```bash
-kubectl get deployment -n purple-team
+kubectl get deployments
 ```{{exec}}
 
 Which has created our pod
 
 ```bash
-kubectl get po -n purple-team
+kubectl get pods
 ```{{exec}}
 
 And an internal "ClusterIP" service which has exposed our pod interally on port 8080
 
 ```bash
-kubectl get service -n purple-team
+kubectl get services -n purple-team
 ```{{exec}}
 
-We can now test that our service is accessible by running curl from a temporary pod
+Here we will create a `curl` pod that we can use to run curl within the cluster.
 
 ```bash
-kubectl run curl --image curlimages/curl --restart=Never --rm -it -- hello-world:8080
+kubectl run curl --image curlimages/curl --command -- sh -c "sleep infinity"
 ```
 
-*The above command creates a pod using the `curlimages/curl` docker image, runs the command `curl hello-world:8080` then removes the pod after the command has completed.*
+We can now test our service is accessible internally using
+```bash
+kubectl exec curl -- curl hello-world
+```
+
+The response body should be `<html><body><h1>It works!</h1></body></html>` 
