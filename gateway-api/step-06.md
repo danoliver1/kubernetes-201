@@ -28,22 +28,3 @@ And an internal "ClusterIP" service which has exposed our pod interally on port 
 ```bash
 kubectl get services
 ```{{exec}}
-
-Here we will create a `curl` pod that we can use to run curl within the cluster.
-
-```bash
-kubectl run curl --image curlimages/curl --command -- sh -c "sleep infinity"
-```{{exec}}
-
-We can now test our service is accessible internally using
-```bash
-kubectl exec curl -- curl hello-world
-```{{exec}}
-
-The response body should be `<html><body><h1>It works!</h1></body></html>` 
-
-Lets tidy up
-
-```bash
-kubectl delete pod curl --now
-```{{exec}}
