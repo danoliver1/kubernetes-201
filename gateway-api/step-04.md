@@ -1,7 +1,7 @@
 
-With our **Platform Engineering** hat still on, let's deploy our gateway resources!
+With our **Platform Engineering** hat still on, let's deploy a gateway resource!
 
-We'll create a Gateway specifically for `purple-team` that lives in their namespace. We could instead deploy a single Gateway for the whole cluster but I like this self-service approach where teams can deploy their own isolated Gateway.
+We'll create a Gateway specifically for `purple-team` that lives in their namespace. We could instead deploy a single Gateway for the whole cluster but for this example we're going with a Gateway per namespace, so each **Development Team** will have their own namespace with their own isolated ingress.
 
 ```bash
 kubectl apply -f - <<EOF

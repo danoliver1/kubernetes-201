@@ -23,7 +23,7 @@ Which has created our pod
 kubectl get pods
 ```{{exec}}
 
-And an internal "ClusterIP" service which has exposed our pod interally on port 8080
+And an internal "ClusterIP" service which has exposed our pod interally on port 80
 
 ```bash
 kubectl get services
