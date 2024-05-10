@@ -14,7 +14,7 @@ Install Istio. This can take a minute or two, **please be patient**.
 ```bash
 kubectl create namespace istio-system
 helm install istio-base istio/base -n istio-system --set defaultRevision=default
-helm install istiod istio/istiod -n istio-system --wait
+helm install istiod istio/istiod -n istio-system -set pilot.env.PILOT_ENABLE_ALPHA_GATEWAY_API=true --wait
 ```{{exec}}
 
 Check that the Istiod pod is showing as `Running`
