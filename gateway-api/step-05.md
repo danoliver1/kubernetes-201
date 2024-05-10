@@ -10,11 +10,12 @@ kind: Gateway
 metadata:
   name: purple-team-gateway
   namespace: purple-team
+  annotations:
+    networking.istio.io/service-type: ClusterIP
 spec:
   gatewayClassName: istio
   listeners:
   - name: http
-    hostname: {{TRAFFIC_HOST1_80}}
     port: 80
     protocol: HTTP
     allowedRoutes:
@@ -29,6 +30,21 @@ We can wait for the Gateway to be ready with this command
 kubectl wait --for=condition=programmed gtw purple-team-gateway
 ```{{exec}}
 
-The Gateway's public URL is: 
+Due to limitations of the lab environment we must port forward
 
-{{TRAFFIC_HOST1_80}}
+```bash
+kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
+```{{exec}}
+
+Now access it via
+
+[ACCESS HELLO WORLD]({{TRAFFIC_HOST1_80}})
+
+or in another terminal tab we should be able to 
+
+```bash
+curl localhost
+```{{exec}}
+
+
+*The annotation `networking.istio.io/service-type: ClusterIP` sets the generated service type to `ClusterIP`. It is needed due to limitations of the lab environment. Leaving it as `LoadBalancer` is probably fine in most cases.*
