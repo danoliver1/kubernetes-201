@@ -1,5 +1,5 @@
 
-Lets create a namespace to put our example app in
+With our **Platform Engineering** hat on, lets create a namespace to put our example app in.
 
 ```bash
 kubectl create ns purple-team
@@ -18,3 +18,5 @@ Also we'll set the default namespace to be `purple-team` so we don't have to add
 ```bash
 kubectl config set-context --current --namespace=purple-team
 ```{{exec}}
+
+*This step might be completed by **Development Team** as part of a self-service template. For example using [Backstage Developer portal](https://backstage.io/). The templates are created by a **Platform Engineering Team***

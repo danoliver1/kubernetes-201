@@ -1,6 +1,6 @@
 
 
-We're going to install Istio using the Helm charts because it is nice and simple. 
+With our **Cluster Operator** hat on, we're going to install Istio using the Helm charts because it is nice and simple. 
 
 Add the Helm repository
 

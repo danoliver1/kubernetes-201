@@ -1,43 +1,36 @@
 
-We'll create a simple deployment and a service to expose it so we can access it using Kubernetes DNS, e.g. `http://hello-world`.
+With our **Platform Engineering** hat still on, let's deploy our gateway resources!
 
-Please note that using the `kubectl` cli is not how I'd recommend deploying production-grade apps, but it's a nice quick way that we can use for testing. Productionising Kubernetes is out of scope for this course.
-
-```bash
-kubectl create deployment hello-world --image httpd
-kubectl expose deployment hello-world --port 80
-kubectl wait --for=condition=available deploy hello-world
-```{{exec}}
-
-Let's have a look at what we've created:
-
-We have a Deployment
+We'll create a Gateway specifically for `purple-team` that lives in their namespace. We could instead deploy a single Gateway for the whole cluster but I like this self-service approach where teams can deploy their own isolated Gateway.
 
 ```bash
-kubectl get deployments
+kubectl apply -f - <<EOF
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: purple-team-gateway
+  namespace: purple-team
+  annotations:
+    networking.istio.io/service-type: ClusterIP
+spec:
+  gatewayClassName: istio
+  listeners:
+  - name: http
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: Same
+EOF
 ```{{exec}}
 
-Which has created our pod
+We can wait for the Gateway to be ready with this command
 
 ```bash
-kubectl get pods
+kubectl wait --for=condition=programmed gtw purple-team-gateway
 ```{{exec}}
 
-And an internal "ClusterIP" service which has exposed our pod interally on port 8080
 
-```bash
-kubectl get services
-```{{exec}}
+*The annotation `networking.istio.io/service-type: ClusterIP` sets the generated service type to `ClusterIP`. It is needed due to limitations of the lab environment. Leaving it as `LoadBalancer` is probably fine in most cases.*
 
-Here we will create a `curl` pod that we can use to run curl within the cluster.
-
-```bash
-kubectl run curl --image curlimages/curl --command -- sh -c "sleep infinity"
-```{{exec}}
-
-We can now test our service is accessible internally using
-```bash
-kubectl exec curl -- curl hello-world
-```{{exec}}
-
-The response body should be `<html><body><h1>It works!</h1></body></html>` 
+*This step might be completed by **Development Team** as part of a self-service template. For example using [Backstage Developer portal](https://backstage.io/). The templates are created by a **Platform Engineering Team***

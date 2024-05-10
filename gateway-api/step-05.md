@@ -1,50 +1,49 @@
 
-Let's deploy our gateway resources!
+With our **Development Team** hat on, we'll create a simple deployment and a service to expose it so we can access it.
 
-We'll create a Gateway specifically for `purple-team` that lives in their namespace. We could instead deploy a single Gateway for the whole cluster but I like this self-service approach where teams can deploy their own isolated Gateway.
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: Gateway
-metadata:
-  name: purple-team-gateway
-  namespace: purple-team
-  annotations:
-    networking.istio.io/service-type: ClusterIP
-spec:
-  gatewayClassName: istio
-  listeners:
-  - name: http
-    port: 80
-    protocol: HTTP
-    allowedRoutes:
-      namespaces:
-        from: Same
-EOF
-```{{exec}}
-
-We can wait for the Gateway to be ready with this command
+Please note that using the `kubectl` cli is not how I'd recommend deploying production-grade apps, but it's a nice quick way that we can use for testing. Productionising Kubernetes is out of scope for this course.
 
 ```bash
-kubectl wait --for=condition=programmed gtw purple-team-gateway
+kubectl create deployment hello-world --image httpd
+kubectl expose deployment hello-world --port 80
+kubectl wait --for=condition=available deploy hello-world
 ```{{exec}}
 
-Due to limitations of the lab environment we must port forward
+Let's have a look at what we've created:
+
+We have a Deployment
 
 ```bash
-kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
+kubectl get deployments
 ```{{exec}}
 
-Now access it via
-
-[ACCESS HELLO WORLD]({{TRAFFIC_HOST1_80}})
-
-or in another terminal tab we should be able to 
+Which has created our pod
 
 ```bash
-curl localhost
+kubectl get pods
 ```{{exec}}
 
+And an internal "ClusterIP" service which has exposed our pod interally on port 8080
 
-*The annotation `networking.istio.io/service-type: ClusterIP` sets the generated service type to `ClusterIP`. It is needed due to limitations of the lab environment. Leaving it as `LoadBalancer` is probably fine in most cases.*
+```bash
+kubectl get services
+```{{exec}}
+
+Here we will create a `curl` pod that we can use to run curl within the cluster.
+
+```bash
+kubectl run curl --image curlimages/curl --command -- sh -c "sleep infinity"
+```{{exec}}
+
+We can now test our service is accessible internally using
+```bash
+kubectl exec curl -- curl hello-world
+```{{exec}}
+
+The response body should be `<html><body><h1>It works!</h1></body></html>` 
+
+Lets tidy up
+
+```bash
+kubectl delete pod curl --now
+```{{exec}}

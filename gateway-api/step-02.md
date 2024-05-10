@@ -1,5 +1,5 @@
 
-The Gateway API CRDs need to be installed so we can create `Gateway` and `HttpRoute` resources.
+With our **Cluster Operator** hat on, the Gateway API CRDs need to be installed so **Platform Engineers** and **Development Teams** can create `Gateway` and `HttpRoute` resources.
 
 To install the Gateway API CRDs run
 ```bash

@@ -1,5 +1,5 @@
 
-Finally, lets configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
+Finally, with our **Development Team** hat still on, lets configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
 
 ```bash
 kubectl apply -f - <<EOF
@@ -19,16 +19,32 @@ spec:
     backendRefs:
     - name: hello-world
       port: 80
+EOF
 ```{{exec}}
 
 That's it. Amazing. Good job!
 
 Let's check it works.
 
+Due to limitations of the lab environment we must port forward
+
 ```bash
-curl {{TRAFFIC_HOST1_80}}
+kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
 ```{{exec}}
 
-or
+Now access it via the public URL
 
-[Open in a tab]({{TRAFFIC_HOST1_80}})
+{{TRAFFIC_HOST1_80}}
+
+
+We can also open a new Terminal tab (at the top) and run 
+
+```bash
+curl localhost
+```{{exec}}
+
+or 
+
+```bash
+curl TRAFFIC_HOST1_80
+```{{exec}}
