@@ -1,50 +1,49 @@
 
-Finally, with our **Development Team** hat still on, lets configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
+With our **Development Team** hat on, we'll create a simple deployment and a service to expose it so we can access it.
+
+Please note that using the `kubectl` cli is not how I'd recommend deploying production-grade apps, but it's a nice quick way that we can use for testing. Productionising Kubernetes is out of scope for this course.
 
 ```bash
-kubectl apply -f - <<EOF
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
-metadata:
-  name: hello-world-route
-  namespace: purple-team
-spec:
-  parentRefs:
-  - name: purple-team-gateway
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: hello-world
-      port: 80
-EOF
+kubectl create deployment hello-world --image httpd
+kubectl expose deployment hello-world --port 80
+kubectl wait --for=condition=available deploy hello-world
 ```{{exec}}
 
-We have now deployed our sample app and made it available at route `/`
+Let's have a look at what we've created:
 
-Let's check it works.
-
-Due to limitations of the lab environment we must port forward
+We have a Deployment
 
 ```bash
-kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
+kubectl get deployments
 ```{{exec}}
 
-Now access it via the public URL
-
-{{TRAFFIC_HOST1_80}}
-
-
-We can also open a new Terminal tab (at the top) and run 
+Which has created our pod
 
 ```bash
-curl localhost
+kubectl get pods
 ```{{exec}}
 
-or 
+And an internal "ClusterIP" service which has exposed our pod interally on port 80
 
 ```bash
-curl {{TRAFFIC_HOST1_80}}
+kubectl get services
+```{{exec}}
+
+Here we will create a `curl` pod that we can use to run curl within the cluster.
+
+```bash
+kubectl run curl --image curlimages/curl --command -- sh -c "sleep infinity"
+```{{exec}}
+
+We can now test our service is accessible internally using
+```bash
+kubectl exec curl -- curl hello-world
+```{{exec}}
+
+The response body should be `<html><body><h1>It works!</h1></body></html>` 
+
+Lets tidy up
+
+```bash
+kubectl delete pod curl --now
 ```{{exec}}

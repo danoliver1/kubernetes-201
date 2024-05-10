@@ -1,26 +1,16 @@
 
+Before the Gateway API existed, we had to deploy Istio Ingress Gateways manually and use vendor specific resources. This meant that **Platform Engineering** teams had to deploy the Istio Ingress Gateway Helm chart as part of the namespace provisioning process. **Development Teams** had to tightly-couple their application with Istio, and configure routing using Istio's complicated Virtual Service resources.
 
-With our **Cluster Operator** hat on, we're going to install Istio using the Helm charts because it is nice and simple. 
+With the Gateway API, **Platform Engineering** can provision a Gateway very easily with a `Gateway` resource and **Development teams** can configure routing with very simple `HttpRoute` resources which are vendor neutral.
 
-Add the Helm repository
+So the Gateway API allows different teams to effictively manage their own resources.
 
-```bash
-helm repo add istio https://istio-release.storage.googleapis.com/charts
-helm repo update
-```{{exec}}
+For example, the Gateway API would work well with this structure
 
-Install Istio. This can take a minute or two, **please be patient**.
+ - **Cluster Operators:** responsible for setting up and maintaining Istio and the Gateway CRDs.
 
-```bash
-kubectl create namespace istio-system
-helm install istio-base istio/base -n istio-system --set defaultRevision=default
-helm install istiod istio/istiod -n istio-system --set pilot.resources.requests.memory=1Gi --wait
-```{{exec}}
+ - **Platform Engineers:** responsible for creating the namespaces and Gateways, or providing a self-service method to provision these.
 
-Check that the Istiod pod is showing as `Running`
+ - **Application Developer:** responsible for creating and deploying their application and defining the HTTP routes.
 
-```bash
-kubectl get pods -n istio-system
-```{{exec}}
-
-*Note: If there are any errors, please review the [Helm install guide](https://istio.io/latest/docs/setup/install/helm/) and [Contact Us](#) if unable to resolve*
+ We'll go through this in a bit more detail...
