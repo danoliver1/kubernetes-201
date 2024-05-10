@@ -28,6 +28,7 @@ A better option is to use a `Deployment`
 
 ```bash
 kubectl create deployment hello-world --image httpd
+kubectl wait --for=condition=available deploy hello-world
 ```{{exec}}
 
 After a few moments, we should see the deployment showing as available

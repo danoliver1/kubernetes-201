@@ -7,6 +7,7 @@ This is very simple in Kubernetes
 
 ```bash
 kubectl create deployment hello-world --image httpd --replicas 3
+kubectl wait --for=condition=available deploy hello-world
 ```{{exec}}
 
 If we wait a few moments, we should see three pods appearing.

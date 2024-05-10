@@ -16,7 +16,8 @@
       },
       {
         "title": "Pod Disruption Budget",
-        "text": "step-03.md"
+        "text": "step-03.md",
+        "background": "assets/background.sh"
       },
       {
         "title": "Horizontal Pod Autoscaling",
@@ -25,6 +26,11 @@
     ],
     "finish": {
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "foo.yaml", "target": "/root", "chmod": "+w"}
+      ]
     }
   },
   "backend": {

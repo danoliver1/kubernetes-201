@@ -24,3 +24,18 @@ Now if we try deleting all of our pods at the same time, we should see that only
 ```bash
 kubectl delete pods -l app=hello-world
 ```{{exec}}
+
+The containers restart so quickly that we can't really see what's happening. This is a major benefit of running workloads in Kubernetes.
+
+Here is a very similar Deployment but it restarts a bit slower so we can see what is happening.
+
+```bash
+kubectl apply -f foo.yaml
+kubectl wait --for=condition=available deploy foo -n foo
+```
+
+Now try deleting the pods again
+
+```bash
+kubectl delete pods -l app=foo -n foo
+```
