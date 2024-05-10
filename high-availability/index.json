@@ -16,8 +16,7 @@
       },
       {
         "title": "Pod Disruption Budget",
-        "text": "step-03.md",
-        "background": "assets/background.sh"
+        "text": "step-03.md"
       },
       {
         "title": "Horizontal Pod Autoscaling",
