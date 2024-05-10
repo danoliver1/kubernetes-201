@@ -22,7 +22,7 @@ spec:
 EOF
 ```{{exec}}
 
-That's it. Amazing. Good job!
+We have now deployed our sample app and made it available at route `/`
 
 Let's check it works.
 
@@ -46,5 +46,5 @@ curl localhost
 or 
 
 ```bash
-curl TRAFFIC_HOST1_80
+curl {{TRAFFIC_HOST1_80}}
 ```{{exec}}

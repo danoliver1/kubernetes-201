@@ -1,7 +1,7 @@
-# Killercoda Scenario Examples
+# Kubernetes 201 Killercoda Scenarios
 
-See these in action here: https://killercoda.com/examples
+This repo contains the Killercoda scenarios for Kubernetes 201
 
-Documentation: https://killercoda.com/creators
+See these scenarios in action here:
 
-For grouping scenarios into courses check https://github.com/killercoda/scenario-examples-courses
+- [Gateway API](https://killercoda.com/dano1/scenario/gateway-api)
