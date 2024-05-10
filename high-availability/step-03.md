@@ -6,6 +6,7 @@ We can further improve availability by adding a `Pod Disruption Budget` to ensur
 Without a `Pod Disruption Budget`, an involuntary disruption like node maintenance could result in all of the pods being terminated at the same time (while they are being rescheduled to new nodes).
 
 ```bash
+kubectl apply -f - <<EOF
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
@@ -14,11 +15,12 @@ spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      run: hello-world
+      app: hello-world
+EOF
 ```{{exec}}
 
 Now if we try deleting all of our pods at the same time, we should see that only one will restart at a time.
 
 ```bash
-kubectl delete pods -l run=hello-world
+kubectl delete pods -l app=hello-world
 ```{{exec}}

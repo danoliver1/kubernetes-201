@@ -6,7 +6,7 @@ We can improve on this by running multiple replicas of a pod.
 This is very simple in Kubernetes
 
 ```bash
-kubectl create deployment hello-world --replicas 3
+kubectl create deployment hello-world --image httpd --replicas 3
 ```{{exec}}
 
 If we wait a few moments, we should see three pods appearing.
@@ -18,7 +18,7 @@ kubectl get pods
 
 Now if one pod restarts, there will still be another two pods available to serve requests.
 
-If you delete pods using the below command, you'll notice that they self-heal and we will have either two or three pods running at all times
+If you delete an individual pod, using the below command as a starting point, you'll notice that they self-heal and we will have either two or three pods running at all times
 
 ```bash
 kubectl delete pod POD_NAME --now

@@ -48,15 +48,19 @@ If a Kubernetes node is terminated, for example for upgrades, the pod will be te
 
 We can test this
 
-- Get the pod name using `kubectl get pods`{{exec}}
+- Delete the pod using `kubectl delete pod -l app=hello-world --now`{{exec}}
 
-- Delete the pod using `kubectl delete pod POD-NAME --now`
-
-- Run `kubectl get pods`{{exec}} again
+- Run `kubectl get pods`{{exec}} again and notice that a new pod has been created with a different name
 
 
 Tidy up...
 
 ```bash
 kubectl delete deployment hello-world
+```{{exec}}
+
+The pods will be cleaned up automatically. To check run
+
+```bash
+kubectl get pods
 ```{{exec}}
