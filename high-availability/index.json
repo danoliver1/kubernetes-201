@@ -1,0 +1,33 @@
+{
+  "title": "High Availability Workloads",
+  "description": "Example showing how to set up a highly available deployment",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Pod vs Deployment",
+        "text": "step-01.md"
+      },
+      {
+        "title": "More than one replica",
+        "text": "step-02.md"
+      },
+      {
+        "title": "Pod Disruption Budget",
+        "text": "step-03.md"
+      },
+      {
+        "title": "Horizontal Pod Autoscaling",
+        "text": "step-04.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node-4GB"
+  }
+}
