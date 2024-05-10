@@ -32,10 +32,10 @@ Here is a very similar Deployment but it restarts a bit slower so we can see wha
 ```bash
 kubectl apply -f foo.yaml
 kubectl wait --for=condition=available deploy foo -n foo
-```
+```{{exec}}
 
 Now try deleting the pods again
 
 ```bash
 kubectl delete pods -l app=foo -n foo
-```
+```{{exec}}

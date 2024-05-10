@@ -30,7 +30,17 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: ["sleep", "5"]  # Add a 5-second delay before termination
+              command: ["sleep", "15"]  # Add a 15-second delay before termination
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
 status: {}
 ---
 apiVersion: policy/v1
