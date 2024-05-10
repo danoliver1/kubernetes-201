@@ -35,16 +35,3 @@ kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
 Now access it via the public URL
 
 {{TRAFFIC_HOST1_80}}
-
-
-We can also open a new Terminal tab (at the top) and run 
-
-```bash
-curl localhost
-```{{exec}}
-
-or 
-
-```bash
-curl {{TRAFFIC_HOST1_80}}
-```{{exec}}
