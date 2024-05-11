@@ -19,8 +19,12 @@
         "text": "step-03.md"
       },
       {
-        "title": "Horizontal Pod Autoscaling",
+        "title": "Fix for 503s",
         "text": "step-04.md"
+      },
+      {
+        "title": "Horizontal Pod Autoscaling",
+        "text": "step-05.md"
       }
     ],
     "finish": {
