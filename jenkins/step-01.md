@@ -17,3 +17,17 @@ watch "kubectl get all"
 ```{{exec}}
 
 Press `CTRL+C` to stop the watch after the pods show as Running.
+
+Now we can get the admin password
+
+```bash
+kubectl exec -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+```{{exec}}
+
+And forward port 8080 so we can access the UI
+
+```bash
+kubectl port-forward svc/jenkins 8080:8080
+```{{exec}}
+
+We should now be able to access Jenkins via {{TRAFFIC_HOST1_8080}}
