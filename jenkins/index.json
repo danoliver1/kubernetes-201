@@ -1,0 +1,22 @@
+{
+    "title": "Jenkins",
+    "description": "Example showing how to set up a highly available Jenkins cluster",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Install the Helm Charts",
+          "text": "step-01.md"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node-4GB"
+    }
+  }
+  
