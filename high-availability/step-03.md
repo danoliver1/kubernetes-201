@@ -1,9 +1,13 @@
 
-Our `Deployment` self-heals and is highly available because it has multiple replicas.
+Even though our `Deployment` self-heals and is highly available because it has multiple replicas, unfortunately we might still experience downtime when there are involuntary disruptions, like node upgrades.
 
-We can further improve availability by adding a `Pod Disruption Budget` to ensure that Kubernetes is only allowed to terminate a certain number or percentage of pods at a time. 
+As an example, if the cluster administrator was to upgrade all of the cluster's nodes, by default all of your workload's pods can be evicted (terminated) at the same time.
 
-Without a `Pod Disruption Budget`, an involuntary disruption like node maintenance could result in all of the pods being terminated at the same time (while they are being rescheduled to new nodes).
+By creating a `Pod Disruption Budget` we can configure Kubernetes to only evict a certain number or percentage of pods at a time. 
+
+So without a pod disruption budget, an involuntary disruption like node maintenance could result in momentary downtime, due to all of the pods terminating at the same time.
+
+For our example workload, this pod disruption budget that will only allow one pod to be evicted at a time
 
 ```bash
 kubectl apply -f - <<EOF
@@ -19,23 +23,22 @@ spec:
 EOF
 ```{{exec}}
 
-Now if we try deleting all of our pods at the same time, we should see that only one will restart at a time.
+Please note that a pdb does not prevent us from manually deleting all of the pods at the same time
 
 ```bash
 kubectl delete pods -l app=hello-world
 ```{{exec}}
 
-The containers restart so quickly that we can't really see what's happening. This is a major benefit of running workloads in Kubernetes.
-
-Here is a very similar Deployment but it restarts a bit slower so we can see what is happening.
+We can test the pod disruption budget by simulating node maintenance and making the node unschedulable.
 
 ```bash
-kubectl apply -f foo.yaml
-kubectl wait --for=condition=available deploy foo -n foo
+kubectl drain controlplane --ignore-daemonsets
 ```{{exec}}
 
-Now try deleting the pods again
+We should see an error message letting us know that it cannot evict all of our pods.
+
+Finally uncordon the node to make if schedulable again.
 
 ```bash
-kubectl delete pods -l app=foo -n foo
+kubectl uncordon controlplane
 ```{{exec}}

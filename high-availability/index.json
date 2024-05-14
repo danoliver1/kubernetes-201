@@ -30,11 +30,6 @@
     "finish": {
       "text": "finish.md"
     },
-    "assets": {
-      "host01": [
-        {"file": "foo.yaml", "target": "/root", "chmod": "+w"}
-      ]
-    }
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-1node-4GB"
