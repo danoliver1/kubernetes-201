@@ -1,5 +1,5 @@
 
-We're going to create a `Deployment` for our workload, but firstly lets deploy a `Pod` and see the limitations of it
+We're going to create a `Deployment` for our workload, but firstly let's deploy a `Pod` and see the limitations of it
 
 #### Pod
 

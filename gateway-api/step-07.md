@@ -1,5 +1,5 @@
 
-Finally, with our **Development Team** hat still on, lets configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
+Finally, with our **Development Team** hat still on, let's configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
 
 ```bash
 kubectl apply -f - <<EOF

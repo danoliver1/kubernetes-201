@@ -1,53 +1,124 @@
 
-It is recommended that you avoid privileged containers unless unavoidable, because they have unrestricted access to the host system, potentially allowing it to perform harmful actions or access sensitive information.
-
-There are certain scenarios where privileged access is necessary, such as a pod for monitoring host activity (runtime security). 
-
-Let's create a namespace with the `baseline` policy and another with `restricted` to see what happens
-
-```
-kubectl create ns baseline-ns
-kubectl label ns baseline-ns pod-security.kubernetes.io/enforce=baseline
-
-kubectl create ns restricted-ns
-kubectl label ns restricted-ns pod-security.kubernetes.io/enforce=restricted
-```{{exec}}
+Let's create a pod which meets the `restricted` standards.
 
 
-And try to add a privileged pod to `baseline`
+If we start with a very simple pod spec, this should get rejected with an error message showing what we need to change.
 
-```
-cat <<EOF | kubectl apply -f -
+
+```bash
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name: privileged-pod
-  namespace: baseline-ns
-spec:
-  containers:
-  - name: privileged-container
-    image: alpine
-    securityContext:
-      privileged: true
-    command: ["sleep", "3600"]
-EOF
-```{{exec}}
-
-And try to add a privileged pod to `restricted`
-
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Pod
-metadata:
-  name: privileged-pod
+  name: restricted-pod
   namespace: restricted-ns
 spec:
   containers:
-  - name: privileged-container
+  - name: container
     image: alpine
+    command:
+    - sh
+    - -c
+    - "sleep infinity"
+EOF
+```{{exec}}
+
+We will work through these errors, fixing them one at a time.
+
+#### Fix `must set securityContext.allowPrivilegeEscalation=false`
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restricted-pod
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: container
+    image: alpine
+    command:
+    - sh
+    - -c
+    - "sleep infinity"
     securityContext:
-      privileged: true
-    command: ["sleep", "3600"]
+      allowPrivilegeEscalation: false
+EOF
+```{{exec}}
+
+#### Fix `must set securityContext.capabilities.drop=["ALL"]`
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restricted-pod
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: container
+    image: alpine
+    command:
+    - sh
+    - -c
+    - "sleep infinity"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities
+        drop: ["ALL"]
+EOF
+```{{exec}}
+
+#### Fix `must set securityContext.runAsNonRoot=true`
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restricted-pod
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: container
+    image: alpine
+    command:
+    - sh
+    - -c
+    - "sleep infinity"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities
+        drop: ["ALL"]
+      runAsNonRoot: true
+EOF
+```{{exec}}
+
+#### Fix `must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost"`
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restricted-pod
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: container
+    image: alpine
+    command:
+    - sh
+    - -c
+    - "sleep infinity"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities
+        drop: ["ALL"]
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
 EOF
 ```{{exec}}

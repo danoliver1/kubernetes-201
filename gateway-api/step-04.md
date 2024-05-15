@@ -1,5 +1,5 @@
 
-With our **Platform Engineering** hat on, lets create a namespace for the **Development Team** to put their example app in.
+With our **Platform Engineering** hat on, let's create a namespace for the **Development Team** to put their example app in.
 
 ```bash
 kubectl create ns purple-team

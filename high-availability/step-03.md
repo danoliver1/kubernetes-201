@@ -9,7 +9,7 @@ So without a pod disruption budget, an involuntary disruption like node maintena
 
 We can test this by running a command to drain pods from the node.
 
-Firsty, lets confirm that there are 3 pods running
+Firsty, let's confirm that there are 3 pods running
 
 ```bash
 kubectl get deployments

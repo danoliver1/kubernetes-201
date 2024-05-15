@@ -5,7 +5,7 @@
 
 In this scenario we'll learn how to apply [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/), scoped to namespaces and the whole cluster.
 
-These policies are built into Kubernetes and can be enabled very easily.
+These policies enforce pod security hardening best practices and they are built into Kubernetes so can be enabled very easily.
 
 We will look at the three policies below in more detail
 

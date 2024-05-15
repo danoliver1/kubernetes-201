@@ -10,7 +10,7 @@ Firstly, we'll install Jenkins with the default configuration to see what is the
 helm upgrade --install jenkins jenkins/jenkins
 ```{{exec}}
 
-This takes a little while to finish, so lets keep an eye on it with this command
+This takes a little while to finish, so let's keep an eye on it with this command
 ```bash
 watch "kubectl get all"
 ```{{exec}}
