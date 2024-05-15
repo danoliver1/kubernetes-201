@@ -9,17 +9,27 @@ So without a pod disruption budget, an involuntary disruption like node maintena
 
 We can test this by running a command to drain pods from the node.
 
-```bash
-kubectl drain controlplane --ignore-daemonsets
-```{{exec}}
-
- This cluster is a single node cluster so this command should evict all of our pods. We can check with
+Firsty, lets confirm that there are 3 pods running
 
 ```bash
 kubectl get deployments
 ```{{exec}}
 
-Finally we'll restore the pods by uncordoning the node
+Then drain the node
+
+```bash
+kubectl drain controlplane --ignore-daemonsets
+```{{exec}}
+
+This cluster is a single node cluster so this command should evict all of our pods. We can check with
+
+```bash
+kubectl get deployments
+```{{exec}}
+
+We should now see that, after a while, all of our pods have been removed and our workload is unavailable.
+
+Finally we'll restore the pods by uncordoning the node.
 
 ```bash
 kubectl uncordon controlplane

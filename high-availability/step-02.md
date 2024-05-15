@@ -24,7 +24,7 @@ If you delete an individual pod, using the below command, you'll notice that the
 ```bash
 POD_1=$(kubectl get pods -l app=hello-world -o jsonpath='{.items[0].metadata.name}')
 kubectl delete pod "$POD_1" --now
-```
+```{{exec}}
 
 This should not result in any down time because when the pod is being deleted, two other pods are still running.
 
