@@ -15,7 +15,7 @@ Firsty, lets confirm that there are 3 pods running
 kubectl get deployments
 ```{{exec}}
 
-Then drain the node
+Then drain the node (this takes a while)
 
 ```bash
 kubectl drain controlplane --ignore-daemonsets
@@ -54,7 +54,7 @@ EOF
 Please note that a pdb does not prevent us from manually deleting all of the pods at the same time
 
 ```bash
-kubectl delete pods -l app=hello-world
+kubectl delete pods -l app=hello-world --now
 ```{{exec}}
 
 We can test the pod disruption budget by simulating node maintenance and making the node unschedulable.
@@ -65,7 +65,9 @@ kubectl drain controlplane --ignore-daemonsets
 
 We should see an error message letting us know that it cannot evict all of our pods.
 
-Finally uncordon the node to make if schedulable again.
+> error when evicting pods/"hello-world-xxxxxxxxx-xxxxx" -n "default" (will retry after 5s): Cannot evict pod as it would violate the pod's disruption budget.
+
+We'll need to press `CTRL+C` to end the command, then uncordon the node to make if schedulable again.
 
 ```bash
 kubectl uncordon controlplane
