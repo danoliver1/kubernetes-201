@@ -11,4 +11,8 @@ Just to recap what we've learned, we have created a highly available workload by
 
 - Creating a `Pod Disruption Budget`
 
+- Adding a workaround to prevent 503s
+
+- Configuring readiness and liveness checks
+
 - Setting up `Horizontal Pod Autoscaling`

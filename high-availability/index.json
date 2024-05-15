@@ -23,8 +23,12 @@
         "text": "step-04.md"
       },
       {
-        "title": "Horizontal Pod Autoscaling",
+        "title": "Configuring Readiness and Liveness Checks",
         "text": "step-05.md"
+      },
+      {
+        "title": "Horizontal Pod Autoscaling",
+        "text": "step-06.md"
       }
     ],
     "finish": {

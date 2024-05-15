@@ -1,3 +1,3 @@
 
 
-TODO: HPA, Readiness/Liveness Probes, 
+TODO: Readiness/Liveness Probes
