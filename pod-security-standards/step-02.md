@@ -16,10 +16,6 @@ spec:
   containers:
   - name: container
     image: alpine
-    command:
-    - sh
-    - -c
-    - "sleep infinity"
 EOF
 ```{{exec}}
 
@@ -38,10 +34,6 @@ spec:
   containers:
   - name: container
     image: alpine
-    command:
-    - sh
-    - -c
-    - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
 EOF
@@ -60,10 +52,6 @@ spec:
   containers:
   - name: container
     image: alpine
-    command:
-    - sh
-    - -c
-    - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -71,7 +59,7 @@ spec:
 EOF
 ```{{exec}}
 
-Fix `must set securityContext.runAsNonRoot=true`
+Fix `must set securityContext.runAsNonRoot=true` - to fix this one we can set `runAsUser` which implicitly sets `runAsNonRoot`.
 
 ```bash
 kubectl apply -f - <<EOF
@@ -84,15 +72,12 @@ spec:
   containers:
   - name: container
     image: alpine
-    command:
-    - sh
-    - -c
-    - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
         drop: ["ALL"]
-      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
 EOF
 ```{{exec}}
 
@@ -109,15 +94,12 @@ spec:
   containers:
   - name: container
     image: alpine
-    command:
-    - sh
-    - -c
-    - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
         drop: ["ALL"]
-      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
       seccompProfile:
         type: RuntimeDefault
 EOF
