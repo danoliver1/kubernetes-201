@@ -34,6 +34,10 @@ spec:
   containers:
   - name: container
     image: alpine
+    command:
+    - sh
+    - -c
+    - sleep infinity
     securityContext:
       allowPrivilegeEscalation: false
 EOF
@@ -52,6 +56,10 @@ spec:
   containers:
   - name: container
     image: alpine
+    command:
+    - sh
+    - -c
+    - sleep infinity
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -72,6 +80,10 @@ spec:
   containers:
   - name: container
     image: alpine
+    command:
+    - sh
+    - -c
+    - sleep infinity
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -95,6 +107,10 @@ spec:
   containers:
   - name: container
     image: alpine
+    command:
+    - sh
+    - -c
+    - sleep infinity
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
