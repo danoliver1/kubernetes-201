@@ -1,13 +1,31 @@
 
 Even though our `Deployment` self-heals and is highly available because it has multiple replicas, unfortunately we might still experience downtime when there are involuntary disruptions, like node upgrades.
 
-As an example, if the cluster administrator was to upgrade all of the cluster's nodes, by default all of your workload's pods can be evicted (terminated) at the same time.
+As an example, if the cluster administrator was to upgrade all of the nodes, by default all of a deployment's pods can be evicted (terminated) at the same time.
 
 By creating a `Pod Disruption Budget` we can configure Kubernetes to only evict a certain number or percentage of pods at a time. 
 
 So without a pod disruption budget, an involuntary disruption like node maintenance could result in momentary downtime, due to all of the pods terminating at the same time.
 
-For our example workload, this pod disruption budget that will only allow one pod to be evicted at a time
+We can test this by running a command to drain pods from the node.
+
+```bash
+kubectl drain controlplane --ignore-daemonsets
+```{{exec}}
+
+ This cluster is a single node cluster so this command should evict all of our pods. We can check with
+
+```bash
+kubectl get deployments
+```{{exec}}
+
+Finally we'll restore the pods by uncordoning the node
+
+```bash
+kubectl uncordon controlplane
+```{{exec}}
+
+For our example workload, we can add a pod disruption budget that will only allow one pod to be evicted at a time
 
 ```bash
 kubectl apply -f - <<EOF

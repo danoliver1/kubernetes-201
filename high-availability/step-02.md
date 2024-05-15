@@ -19,10 +19,11 @@ kubectl get pods
 
 Now if one pod restarts, there will still be another two pods available to serve requests.
 
-If you delete an individual pod, using the below command as a starting point, you'll notice that they self-heal and we will have either two or three pods running at all times
+If you delete an individual pod, using the below command, you'll notice that the deployment self-heals very quickly and we will have either two or three pods running at all times
 
 ```bash
-kubectl delete pod POD_NAME --now
+POD_1=$(kubectl get pods -l app=hello-world -o jsonpath='{.items[0].metadata.name}')
+kubectl delete pod "$POD_1" --now
 ```
 
 This should not result in any down time because when the pod is being deleted, two other pods are still running.
