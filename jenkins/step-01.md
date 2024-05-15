@@ -31,7 +31,7 @@ kubectl port-forward --address 0.0.0.0 service/jenkins 8080:8080
 
 We should now be able to access:
 
-[JENKINS UI]{{TRAFFIC_HOST1_8080}}
+[JENKINS UI]({{TRAFFIC_HOST1_8080}})
 
 Use the username `admin` and password from the previous step to login and explore.
 

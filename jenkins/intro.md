@@ -9,4 +9,6 @@ We'll do this by
 
 - Installing the Helm charts
 
-- TBC
+- ...TODO...
+
+*TBC - might remove this scenario because Jenkins is slow and clunky*
