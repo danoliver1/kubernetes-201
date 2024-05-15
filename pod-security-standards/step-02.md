@@ -59,7 +59,7 @@ spec:
 EOF
 ```{{exec}}
 
-Fix `must set securityContext.runAsNonRoot=true` - to fix this one we can set `runAsUser` which implicitly sets `runAsNonRoot`.
+Fix `must set securityContext.runAsNonRoot=true` - to fix this one we also need to set `runAsUser` and `runAsGroup` because the docker image runs as user id 0 (root) by default.
 
 ```bash
 kubectl apply -f - <<EOF
@@ -76,6 +76,7 @@ spec:
       allowPrivilegeEscalation: false
       capabilities:
         drop: ["ALL"]
+      runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
 EOF
@@ -98,6 +99,7 @@ spec:
       allowPrivilegeEscalation: false
       capabilities:
         drop: ["ALL"]
+      runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
       seccompProfile:
