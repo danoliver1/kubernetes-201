@@ -66,7 +66,7 @@ spec:
     - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
-      capabilities
+      capabilities:
         drop: ["ALL"]
 EOF
 ```{{exec}}
@@ -90,7 +90,7 @@ spec:
     - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
-      capabilities
+      capabilities:
         drop: ["ALL"]
       runAsNonRoot: true
 EOF
@@ -115,7 +115,7 @@ spec:
     - "sleep infinity"
     securityContext:
       allowPrivilegeEscalation: false
-      capabilities
+      capabilities:
         drop: ["ALL"]
       runAsNonRoot: true
       seccompProfile:
