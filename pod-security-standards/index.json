@@ -1,0 +1,29 @@
+{
+  "title": "Pod Security Standards",
+  "description": "Implementing pod security standards at namespace level",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Privileged",
+        "text": "step-01.md"
+      },
+      {
+        "title": "Settings at namespace level",
+        "text": "step-02.md"
+      },
+      {
+        "title": "Cluster Defaults",
+        "text": "step-03.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node-4GB"
+  }
+}
