@@ -122,3 +122,7 @@ spec:
         type: RuntimeDefault
 EOF
 ```{{exec}}
+
+The pod should now pass the `restricted` rules and have deployed successfully.
+
+**This pod is "following current Pod hardening best practices"**
