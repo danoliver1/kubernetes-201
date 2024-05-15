@@ -23,9 +23,9 @@ spec:
 EOF
 ```{{exec}}
 
-We will work through these errors, fixing them one at a time.
+**We will work through these errors, fixing them one at a time.**
 
-#### Fix `must set securityContext.allowPrivilegeEscalation=false`
+Fix `must set securityContext.allowPrivilegeEscalation=false`
 
 ```bash
 kubectl apply -f - <<EOF
@@ -47,7 +47,7 @@ spec:
 EOF
 ```{{exec}}
 
-#### Fix `must set securityContext.capabilities.drop=["ALL"]`
+Fix `must set securityContext.capabilities.drop=["ALL"]`
 
 ```bash
 kubectl apply -f - <<EOF
@@ -71,7 +71,7 @@ spec:
 EOF
 ```{{exec}}
 
-#### Fix `must set securityContext.runAsNonRoot=true`
+Fix `must set securityContext.runAsNonRoot=true`
 
 ```bash
 kubectl apply -f - <<EOF
@@ -96,7 +96,7 @@ spec:
 EOF
 ```{{exec}}
 
-#### Fix `must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost"`
+Fix `must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost"`
 
 ```bash
 kubectl apply -f - <<EOF
