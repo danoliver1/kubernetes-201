@@ -11,8 +11,8 @@ Install Istio. This can take a minute or two, **please be patient**.
 
 ```bash
 kubectl create namespace istio-system
-helm install istio-base istio/base -n istio-system --set defaultRevision=default --set global.proxy.resources.requests.cpu=20m
-helm install istiod istio/istiod -n istio-system --set pilot.resources.requests.memory=1Gi --wait
+helm install istio-base istio/base -n istio-system --set defaultRevision=default
+helm install istiod istio/istiod -n istio-system --set pilot.resources.requests.memory=1Gi --set global.proxy.resources.requests.cpu=10m --wait
 ```{{exec}}
 
 Check that the Istiod pod is showing as `Running`
