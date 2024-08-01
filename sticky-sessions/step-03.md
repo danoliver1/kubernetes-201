@@ -93,3 +93,5 @@ kubectl port-forward --address 0.0.0.0 service/sticky-session-test-gateway 80:80
 Now access it via the public URL
 
 {{TRAFFIC_HOST1_80}}
+
+*Please leave this port forward running* and open another tab in the Terminal by clicking the `+` icon at the top of the window.
