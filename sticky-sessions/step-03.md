@@ -1,26 +1,84 @@
 
-Finally, with our **Development Team** hat still on, let's configure the Gateway so that when we go to our website `http://{domain}/`, the requests will be sent to our `hello-world` service!
+
+Deploy a simple web application with 3 replicas that returns the hostname of the pod
 
 ```bash
 kubectl apply -f - <<EOF
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: hello-world-route
-  namespace: purple-team
+  labels:
+    app: web
+  name: web
 spec:
-  parentRefs:
-  - name: purple-team-gateway
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: hello-world
-      port: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+        sidecar.istio.io/inject: "true"
+    spec:
+      initContainers:
+      - image: alpine
+        name: init
+        command: ['sh', '-c', 'echo "$${HOSTNAME}" > /usr/local/apache2/htdocs/index.html']
+        volumeMounts:
+        - name: web
+          mountPath: /usr/local/apache2/htdocs
+      containers:
+      - image: httpd
+        name: httpd
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: web
+          mountPath: /usr/local/apache2/htdocs
+      volumes:
+      - name: web
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web
+  name: web
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: web
+  type: ClusterIP
 EOF
 ```{{exec}}
+
+Configure the routing
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: web
+spec:
+  gateways:
+  - sticky-session-test-gateway
+  hosts:
+  - "*"
+  http:
+  - route:
+    - destination:
+        host: web
+        port:
+          number: 80
+EOF
+```{{exec}}
+
 
 We have now deployed our sample app and made it available at route `/`
 
@@ -29,7 +87,7 @@ Let's check it works.
 Due to limitations of the lab environment we must port forward
 
 ```bash
-kubectl port-forward --address 0.0.0.0 service/purple-team-gateway-istio 80:80
+kubectl port-forward --address 0.0.0.0 service/sticky-session-test-gateway 80:80
 ```{{exec}}
 
 Now access it via the public URL
