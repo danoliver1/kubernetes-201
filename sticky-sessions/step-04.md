@@ -15,14 +15,14 @@ while true; do
 if [ $FIRST_RUN -eq 1 ]; then 
     for i in $(seq 1 $USERS_TO_SIMULATE); do 
     echo -n "User #$i - "
-    curl -s web --cookie-jar "user${i}.cookie"; 
+    curl -s localhost --cookie-jar "user${i}.cookie"; 
     FIRST_RUN=0
     done
 # subsequent requests need to send the cookie
 else 
     for i in $(seq 1 $USERS_TO_SIMULATE); do
     echo -n "User #$i - "
-    curl -s web --cookie "user${i}.cookie"; 
+    curl -s localhost --cookie "user${i}.cookie"; 
     done
 fi;
 echo "---"
