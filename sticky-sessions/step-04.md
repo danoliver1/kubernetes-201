@@ -22,7 +22,7 @@ if [ $FIRST_RUN -eq 1 ]; then
 else 
     for i in $(seq 1 $USERS_TO_SIMULATE); do
     echo -n "User #$i - "
-    curl -s localhost --cookie "user${i}.cookie"; 
+    curl -s localhost --cookie-jar "user${i}.cookie" --cookie "user${i}.cookie"; 
     done
 fi;
 echo "---"

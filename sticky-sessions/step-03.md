@@ -1,6 +1,6 @@
 
 
-Deploy a simple web application with 3 replicas that returns the hostname of the pod
+For testing purposes, we'll deploy a simple web application with 5 replicas that returns the name of the pod
 
 ```bash
 kubectl apply -f - <<EOF
@@ -11,7 +11,7 @@ metadata:
     app: web
   name: web
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: web
@@ -19,7 +19,6 @@ spec:
     metadata:
       labels:
         app: web
-        sidecar.istio.io/inject: "true"
     spec:
       initContainers:
       - image: alpine
