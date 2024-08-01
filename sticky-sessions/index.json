@@ -1,0 +1,41 @@
+{
+  "title": "Sticky Sessions with Istio",
+  "description": "Example showing consistent hash based sticky sessions and stateful sticky sessions",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Install Istio",
+        "text": "step-01.md"
+      },
+      {
+        "title": "Set up a namespace",
+        "text": "step-02.md"
+      },
+      {
+        "title": "Set up an example workload",
+        "text": "step-03.md"
+      },
+      {
+        "title": "Testing with no sticky session",
+        "text": "step-04.md"
+      },
+      {
+        "title": "Testing consistent hash based sticky sessions",
+        "text": "step-05.md"
+      },
+      {
+        "title": "Testing stateful sticky sessions",
+        "text": "step-06.md"
+      },
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node-4GB"
+  }
+}
