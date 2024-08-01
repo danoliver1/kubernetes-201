@@ -25,15 +25,17 @@ Then run the test script again and you should see that each user will receive a 
 ./test.sh
 ```{{exec}}
 
-Open another Terminal tab by pressing the `+` button at the top and terminate one of the pods by running
+**Open another Terminal tab** by pressing the `+` button at the top and terminate one of the pods by running
 
 ```bash
 kubectl delete pod $(kubectl get pods -l app=web -o jsonpath='{.items[0].metadata.name}') --now
 ```{{exec}}
 
-You should see that ALL of the users requests are rebalanced to different pods, not just the users that are sticking to the pod that was terminated.
+Switching back to the tab running the test script, you should see that ALL of the users requests are rebalanced to different pods, not just the users that are sticking to the pod that was terminated.
 
-Clean up the sticky session config by running:
+The rebalancing seems to happen when the pod is terminated and again when the replacement pod starts.
+
+Press `CTRL+C` to stop the script and clean up the sticky session config by running:
 
 ```bash
 kubectl delete destinationrule web

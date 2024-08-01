@@ -33,7 +33,7 @@ chmod +x test.sh
 ```{{exec}}
 
 
-We have not deployed any config for sticky sessions yet so if we run the script, we should see that each "user" will be served a response from a random pod.
+We have not deployed any config for sticky sessions yet so if we run the script, we should see that each "user" will be served a response from a random pod each time the requests run.
 
 ```bash
 ./test.sh
