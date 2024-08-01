@@ -24,7 +24,7 @@ spec:
       initContainers:
       - image: alpine
         name: init
-        command: ['sh', '-c', 'echo "$${HOSTNAME}" > /usr/local/apache2/htdocs/index.html']
+        command: ['sh', '-c', 'echo "\${HOSTNAME}" > /usr/local/apache2/htdocs/index.html']
         volumeMounts:
         - name: web
           mountPath: /usr/local/apache2/htdocs
