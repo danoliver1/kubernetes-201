@@ -3,6 +3,7 @@
 To test the Redis cache, we will deploy another pod called `redis-client` and then run commands from that pod. This step is optional but demonstrates the connectivity.
 
 ```bash
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -28,6 +29,7 @@ spec:
       - name: redis-client
         image: redis:7.4.0
         command: ["sh", "-c", "sleep infinity"]
+EOF
 ```{{exec}}
 
 We can then connect to the pod and run the `redis-cli`
@@ -45,9 +47,8 @@ SET user1.name fred
 Get a value from the redis cache
 
 ```bash
-GET user1.name fred
+GET user1.name
+exit
 ```{{exec}}
-
-Press `CTRL+C` to exit.
 
 Your own application can connect to the redis cache in a similar way using the host `redis`
