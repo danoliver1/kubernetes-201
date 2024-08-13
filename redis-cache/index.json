@@ -1,0 +1,37 @@
+{
+  "title": "Redis Cache",
+  "description": "Example showing how to deploy a Redis cache pod and use Istio to securely communicate with it",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Install Istio",
+        "text": "step-01.md"
+      },
+      {
+        "title": "Set up a namespace",
+        "text": "step-02.md"
+      },
+      {
+        "title": "Deploy Redis",
+        "text": "step-03.md"
+      },
+      {
+        "title": "Testing",
+        "text": "step-04.md"
+      },
+      {
+        "title": "Securing access to the cache",
+        "text": "step-05.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node-4GB"
+  }
+}
