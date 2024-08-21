@@ -40,9 +40,44 @@ spec:
           limits:
             cpu: 2
             memory: 128Mi
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
         volumeMounts:
         - name: redis-config
           mountPath: /redis/etc
+      - name: redis-exporter
+        image: oliver006/redis_exporter:v1.62.0
+        ports:
+        - containerPort: 9121
+        args:
+          - "--redis.addr=redis://localhost:6379"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1002
+          runAsGroup: 1002
       volumes:
       - name: redis-config
         configMap:
