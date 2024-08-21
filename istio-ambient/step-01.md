@@ -16,6 +16,7 @@ helm install istio-base istio/base -n istio-system \
     --set defaultRevision=default
 
 helm install istiod istio/istiod -n istio-system \
+    --set pilot.resources.requests.cpu=50m \
     --set pilot.resources.requests.memory=1Gi \
     --set global.proxy.resources.requests.cpu=10m \
     --set meshConfig.accessLogFile=/dev/stdout \
@@ -23,7 +24,7 @@ helm install istiod istio/istiod -n istio-system \
     --wait
 ```{{exec}}
 
-Note: to enable Ambient mode we have set `profile=ambient` for `istiod`
+Note: to enable Ambient mode we have set `profile=ambient`
 
 There are two additional components we must install for Istio Ambient mode.
 
@@ -46,7 +47,7 @@ helm upgrade ztunnel istio/ztunnel -n istio-system \
 
 In summary, the key difference between a standard Istio installation and Istio Ambient mode is the inclusion of profile=ambient in the istiod Helm release, along with the additional Helm releases for ztunnel and istio-cni.
 
-Before moving on, heck all of the Istio pods are showing as `Running`
+Before moving on, check all of the Istio pods are showing as `Running`
 
 ```bash
 kubectl get pods -n istio-system

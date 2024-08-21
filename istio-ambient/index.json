@@ -13,6 +13,26 @@
       {
         "title": "Install Gateway API CRDs",
         "text": "step-02.md"
+      },
+      {
+        "title": "Set up a namespace for testing",
+        "text": "step-03.md"
+      },
+      {
+        "title": "Deploy a sample web server",
+        "text": "step-04.md"
+      },
+      {
+        "title": "Verify Istio is enabled",
+        "text": "step-05.md"
+      },
+      {
+        "title": "Deploy a L4 authorization policy",
+        "text": "step-06.md"
+      },
+      {
+        "title": "Deploy a waypoint proxy and use L7 features",
+        "text": "step-07.md"
       }
     ],
     "finish": {
