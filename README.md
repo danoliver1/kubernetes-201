@@ -8,6 +8,8 @@ See these scenarios in action here:
 
 - [High Availability](https://killercoda.com/dano1/scenario/high-availability) (Work In Progress)
 
-- [Pod Security Standards](https://killercoda.com/dano1/scenario/pod-security-standards) (Work In Progress)
+- [Pod Security Standards](https://killercoda.com/dano1/scenario/pod-security-standards)
 
-- [Sticky Sessions](https://killercoda.com/dano1/scenario/sticky-sessions) (Work In Progress)
+- [Redis Cache](https://killercoda.com/dano1/scenario/sticky-sessions)
+
+- [Sticky Sessions](https://killercoda.com/dano1/scenario/sticky-sessions)

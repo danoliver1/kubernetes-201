@@ -1,0 +1,25 @@
+{
+  "title": "Istio Ambient Mesh Demo",
+  "description": "Example showing how to deploy Istio Ambient mesh components and showing example L4 and L7 Authz Policies",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Install Istio",
+        "text": "step-01.md"
+      },
+      {
+        "title": "Install Gateway API CRDs",
+        "text": "step-02.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node-4GB"
+  }
+}
