@@ -66,7 +66,7 @@ kubectl exec curl -n webapp -- curl web
 However, a POST request will fail with "RBAC: access denied" because we only allowed GET requests
 
 ```bash
-kubectl exec curl -n webapp -- curl web
+kubectl exec curl -n webapp -- curl web -X POST
 ```{{exec}}
 
 Requests from any other pod will also fail, but instead of a connection reset, you'll now see "RBAC: access denied." This happens because the waypoint is functioning at the L7 layer.

@@ -5,7 +5,7 @@ With a standard Istio install our `web` pod would have two containers - the ngin
 If we look at our web server pod, we can see that it only has one container. 
 
 ```
-kubectl get pods -n webapp -l app=web
+kubectl get pods -n webapp -l app=web -o json | jq .items[0].spec.containers
 ```{{exec}}
 
 We can confirm that it is definitely "Istio enabled" by creating a temporary curl pod in a non-Istio enabled namespace and trying to make a request to it.
